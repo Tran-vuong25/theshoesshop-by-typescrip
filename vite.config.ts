@@ -7,5 +7,11 @@ export default defineConfig({
 
   server: {
     port: 2501,
+  },
+
+  resolve: {
+    alias: {
+      src: '/src'
+    }
   }
 })

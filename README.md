@@ -10,7 +10,8 @@ npm i react --save: Những phiên bản cũ không cần thiết thêm --save
 npm i prettier --save-dev
 npm i prettier -D
 
-
 ## prettier: fomart code
+
 ## eslint: rule của project
-## 
+
+## layout: giống nhau, khác compoenent

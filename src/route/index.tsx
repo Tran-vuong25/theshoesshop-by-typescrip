@@ -61,7 +61,8 @@ export const router = createBrowserRouter([
         element: <Carts />,
       },
       {
-        path: "Detail",
+        // !Chú ý: params chỉ sử dụng cho trường hợp muốn truyền đi một thông số
+        path: "Detail/:idDetail", //Detail/:Param
         element: <Detail />,
       },
       {

@@ -3,11 +3,13 @@
     src: url('src/assets/fonts/Inter-Thin.ttf');
     font-weight: 100;
 }
+
 @font-face {
     font-family: Inter;
     src: url('src/assets/fonts/Inter-ExtraLight.ttf');
     font-weight: 200;
 }
+
 @font-face {
     font-family: Inter;
     src: url('src/assets/fonts/Inter-Light.ttf');
@@ -37,11 +39,13 @@
     src: url('src/assets/fonts/Inter-Bold.ttf');
     font-weight: 700;
 }
+
 @font-face {
     font-family: Inter;
     src: url('src/assets/fonts/Inter-ExtraBold.ttf');
     font-weight: 800;
 }
+
 @font-face {
     font-family: Inter;
     src: url('./src/assets/fonts/Inter-Black.ttf');
@@ -74,4 +78,19 @@ img {
     width: 100%;
     object-fit: cover;
     display: block;
+}
+
+button {
+    cursor: pointer;
+    border-radius: .5rem;
+    padding: .5rem;
+    outline: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+p{
+    margin: 0;
 }
