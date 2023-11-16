@@ -13,8 +13,15 @@ import logoCyber from "src/assets/icons/logoCyber.svg";
 // import IconCart from "src/assets/icons/IconCart";
 import { IconCart, IconSearch } from "src/assets/icons";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useAppSelector } from "src/redux/hookRedux";
 
 export function Header() {
+  const { cart } = useAppSelector((rootReducer) => {
+    return rootReducer.cartsReducer;
+  });
+  // console.log(store);
+
   // console.log(logoCyber);
   // console.log(css);
   return (
@@ -29,7 +36,7 @@ export function Header() {
           </div>
           <div className={`${css["cart"]} ${css["magin"]}`}>
             <IconCart />
-            <span>(1)</span>
+            <span>({cart.length})</span>
           </div>
           {/* <div className={`${css.auth} ${css["magin"]}`}> */}
           <div className={cx("auth", "magin")}>

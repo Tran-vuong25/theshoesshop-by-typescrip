@@ -7,12 +7,20 @@ import { router } from "./route";
 // --------------------------------------------------------
 
 import { GlobalStyle } from "./components/global-style/GlobalStyle";
+import { DemoContext } from "./demos/demoContext/DemoContext";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
+// *-----------------Redux---------------------------------
 
 function App() {
   return (
     <>
       <GlobalStyle>
-        <RouterProvider router={router} />
+        {/* <DemoContext/> */}
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
       </GlobalStyle>
     </>
   );
