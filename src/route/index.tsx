@@ -52,7 +52,7 @@ export const router = createBrowserRouter([
         element: (
           //* nếu file component chưa tải xong thì nó sẽ render component trong fallback
           // <Suspense fallback="Loading....">
-            <Search />
+          <Search />
           // </Suspense>
         ), //? Chắc chắn component đã chạy xong chưa
       },
@@ -69,12 +69,6 @@ export const router = createBrowserRouter([
         path: "Profile",
         element: <Profile />,
       },
-    ],
-  },
-  {
-    path: "auth",
-    element: <AuthTemplate />,
-    children: [
       {
         path: "Login",
         element: <Login />,
@@ -85,6 +79,20 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  // {
+  //   path: "auth",
+  //   element: <AuthTemplate />,
+  //   children: [
+  //     {
+  //       path: "Login",
+  //       element: <Login />,
+  //     },
+  //     {
+  //       path: "Register",
+  //       element: <Register />,
+  //     },
+  //   ],
+  // },
   {
     path: "*", // Nếu người dùng gõ một path không trùng khớp với mọi setup trong router của mình thì nó sẽ render ra component này
     element: <h1>Page not found</h1>,

@@ -8,19 +8,36 @@ import { router } from "./route";
 
 import { GlobalStyle } from "./components/global-style/GlobalStyle";
 import { DemoContext } from "./demos/demoContext/DemoContext";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { store } from "./redux/store";
 
 // *-----------------Redux---------------------------------
+import { useEffect } from "react";
+import { getLocalstorage } from "./utils/utils";
+import { ACCESS_TOKEN } from "./constant";
+import { getProfile } from "./services";
+import { loginSuccess } from "./redux/userSlice";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const accessToken = getLocalstorage(ACCESS_TOKEN);
+    if (accessToken) {
+      getProfile().then((resp) => {
+        dispatch(
+          loginSuccess({
+            email: resp.email,
+          }),
+        );
+      });
+    }
+  }, []);
+
   return (
     <>
       <GlobalStyle>
         {/* <DemoContext/> */}
-        <Provider store={store}>
-          <RouterProvider router={router} />
-        </Provider>
+        <RouterProvider router={router} />
       </GlobalStyle>
     </>
   );

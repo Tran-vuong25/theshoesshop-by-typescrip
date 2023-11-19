@@ -12,14 +12,34 @@ import logoCyber from "src/assets/icons/logoCyber.svg";
 // import IconSearch from "src/assets/icons/IconSearch";
 // import IconCart from "src/assets/icons/IconCart";
 import { IconCart, IconSearch } from "src/assets/icons";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useAppSelector } from "src/redux/hookRedux";
+import { removeLocalstorage } from "src/utils/utils";
+import { ACCESS_TOKEN } from "src/constant";
+import { loginSuccess } from "src/redux/userSlice";
+
+function Show({ when, fallback, children }: any) {
+  // if (when) {
+  //   return children;
+  // }
+  // return fallback;
+
+  return when ? children : fallback;
+}
 
 export function Header() {
   const { cart } = useAppSelector((rootReducer) => {
     return rootReducer.cartsReducer;
   });
+
+  const { login } = useAppSelector((rootReducer) => {
+    return rootReducer.userReducer;
+  });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   // console.log(store);
 
   // console.log(logoCyber);
@@ -40,30 +60,101 @@ export function Header() {
           </div>
           {/* <div className={`${css.auth} ${css["magin"]}`}> */}
           <div className={cx("auth", "magin")}>
-            <button className={css.login}>Login</button>
-            <button className={`${css.register} ${css["magin"]}`}>
-              Register
-            </button>
+            {/* <Show when={login === null || login === undefined}>
+              <NavLink to="/register" activeClassName="active"></NavLink>
+            <NavLink to="/login">Sign in</NavLink>
+            </Show> */}
+
+            {/* Cách 1: */}
+            {/* {login.email ? (
+              login.email
+            ) : (
+              <Link to={"/login"} className={css.login}>
+                Login
+              </Link>
+            )} */}
+
+            {/* Cách 2: */}
+            <Show
+              when={login.email}
+              fallback={
+                <Link to={"/login"} className={css.login}>
+                  Login
+                </Link>
+              }
+            >
+              <Link to={"/profile"}>{login.email}</Link>
+            </Show>
+
+            {/* Cách 1: */}
+            {/* {login.email ? null : (
+              <Link
+                to={"/register"}
+                className={`${css.register} ${css["magin"]}`}
+              >
+                Register
+              </Link>
+            )} */}
+
+            {/* Cách 2: */}
+            <Show
+              when={!login.email}
+              fallback={
+                <button
+                  onClick={() => {
+                    //* 1. Chuyển về trang login
+                    navigate("login");
+
+                    //* 2. Xóa localstorage
+                    removeLocalstorage(ACCESS_TOKEN);
+
+                    //* 3. remove trên redux
+                    dispatch(
+                      loginSuccess({
+                        email: "",
+                      }),
+                    );
+                  }}
+                >
+                  Logout
+                </button>
+              }
+            >
+              <Link
+                to={"/register"}
+                className={`${css.register} ${css["magin"]}`}
+              >
+                Register
+              </Link>
+            </Show>
           </div>
         </div>
       </header>
       <nav className={cx("nav")}>
         {/* <a href=""></a> */}
-        <Link className={cx("link", "link-active")} to={"/"}>
+        <NavLink
+          style={(rest) => {
+            // console.log(rest);
+
+            return { color: rest.isActive ? "red" : "black" };
+          }}
+          className={cx("link", "link-active")}
+          to={"/"}
+        >
           Home
-        </Link>
-        <Link className={cx("link")} to={"/"}>
+        </NavLink>
+        <NavLink className={cx("link")} to={"/"}>
           Men
-        </Link>
-        <Link className={cx("link")} to={"/"}>
+        </NavLink>
+        <NavLink className={cx("link")} to={"/"}>
           Woman
-        </Link>
-        <Link className={cx("link")} to={"/"}>
+        </NavLink>
+        <NavLink className={cx("link")} to={"/"}>
           Kid
-        </Link>
-        <Link className={cx("link")} to={"/"}>
+        </NavLink>
+        <NavLink className={cx("link")} to={"/"}>
           Support
-        </Link>
+        </NavLink>
       </nav>
     </>
   );

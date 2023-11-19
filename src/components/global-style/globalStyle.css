@@ -1,3 +1,9 @@
+/** Setup Tailwindcss */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* ------------------------------ */
+
 @font-face {
     font-family: Inter;
     src: url('src/assets/fonts/Inter-Thin.ttf');
